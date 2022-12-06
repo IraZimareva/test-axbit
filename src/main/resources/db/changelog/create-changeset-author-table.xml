@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="create_table_author" author="Zimareva">
+        <createTable tableName="author">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="current_timestamp"/>
+            <column name="modified" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="current_timestamp"/>
+            <column name="lastname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middlename" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="add_fk_author_id_to_book" author="Zimareva">
+        <addForeignKeyConstraint baseColumnNames="author_id"
+                                 baseTableName="book"
+                                 constraintName="fk_author_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="author"/>
+    </changeSet>
+</databaseChangeLog>

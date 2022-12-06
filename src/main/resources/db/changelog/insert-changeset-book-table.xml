@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="insert-into-book" author="Zimareva">
+        <preConditions  onFail="WARN">
+            <sqlCheck  expectedResult="4">select count(*) from   genre</sqlCheck>
+            <sqlCheck  expectedResult="1">select count(*) from   author</sqlCheck>
+        </preConditions>
+        <comment>Проверяем что в нашей таблице genre есть 4 жанра и
+            в таблице author есть 1 автор перед добавлением книги</comment>
+        <insert tableName="book">
+            <column name="isbn" value="9781612035512"/>
+            <column name="genre_id" value="1"/>
+            <column name="author_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
