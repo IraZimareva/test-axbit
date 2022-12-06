@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "author")
-public class Author extends EntitySuperclass{
+public class Author extends EntitySuperclass {
     private String lastname;
     private String firstname;
     private String middlename;
@@ -16,7 +16,7 @@ public class Author extends EntitySuperclass{
     @OneToMany(
             fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "author_id", nullable=false)
+    @JoinColumn(name = "author_id", nullable = false)
     private List<Book> books = new ArrayList<>();
 
     public Author() {
@@ -60,6 +60,14 @@ public class Author extends EntitySuperclass{
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public void deleteBook(Book book){
+        books.remove(book);
     }
 
     @Override
