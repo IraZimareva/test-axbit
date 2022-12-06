@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="insert-into-author" author="Zimareva">
+        <insert tableName="author">
+            <column name="lastname" value="Дойл"/>
+            <column name="firstname" value="Артур"/>
+            <column name="middlename" value="Игнейшус Конан"/>
+            <column name="date_of_birth" value="1859-05-22"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
