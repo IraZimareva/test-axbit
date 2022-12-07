@@ -1,5 +1,8 @@
 package zimareva.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "author")
+@SQLDelete(sql = "UPDATE author SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted = false")
 public class Author extends EntitySuperclass {
     private String lastname;
     private String firstname;
@@ -64,10 +69,6 @@ public class Author extends EntitySuperclass {
 
     public void addBook(Book book) {
         books.add(book);
-    }
-
-    public void deleteBook(Book book){
-        books.remove(book);
     }
 
     @Override

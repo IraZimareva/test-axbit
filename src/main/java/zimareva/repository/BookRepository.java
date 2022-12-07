@@ -15,6 +15,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findByGenreId(Long id);
 
-    @Query("SELECT e FROM book e WHERE e.authorId = :authorId ")
+    @Query(value = "SELECT * FROM book WHERE author_id = :authorId ",
+            nativeQuery = true)
     List<Book> findByAuthorId(@Param("authorId") Long id);
 }
