@@ -3,6 +3,7 @@ package zimareva.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import zimareva.model.dto.BookDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,6 @@ import javax.persistence.Table;
 @SQLDelete(sql = "UPDATE book SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted = false")
 public class Book extends EntitySuperclass{
-    //todo: проверить на уникальность
     private String isbn;
     @ManyToOne
     @JoinColumn(name="genre_id", nullable=false)
@@ -38,6 +38,13 @@ public class Book extends EntitySuperclass{
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public static Book from(BookDTO bookDto, Genre genre){
+        Book book = new Book();
+        book.setIsbn(bookDto.getIsbn());
+        book.setGenre(genre);
+        return book;
     }
 
     @Override

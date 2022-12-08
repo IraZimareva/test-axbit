@@ -6,6 +6,7 @@ import org.springframework.util.ReflectionUtils;
 import zimareva.exception.EntityNotFoundException;
 import zimareva.model.Author;
 import zimareva.model.Book;
+import zimareva.model.dto.BookDTO;
 import zimareva.repository.AuthorRepository;
 
 import javax.transaction.Transactional;
@@ -86,9 +87,9 @@ public class AuthorService {
     }
 
     @Transactional
-    public Author createBookToAuthor(Long authorId, Book book) {
+    public Author createBookToAuthor(Long authorId, BookDTO bookDto) {
         Author author = getAuthorById(authorId);
-        Book createdBook = bookService.addBook(book);
+        Book createdBook = bookService.addBook(bookDto);
         author.addBook(createdBook);
         return author;
     }

@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zimareva.model.Author;
-import zimareva.model.Book;
+import zimareva.model.dto.BookDTO;
 import zimareva.service.AuthorService;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class AuthorController {
     }
 
     @PatchMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Author> partialUpdateGeneric(@PathVariable("id") Long authorId,
+    public ResponseEntity<Author> partialUpdateAuthor(@PathVariable("id") Long authorId,
                                                        @RequestBody Map<String, Object> authorDetails) {
         Author editedAuthor = authorService.editAuthor(authorId, authorDetails);
         return new ResponseEntity<>(editedAuthor, HttpStatus.OK);
@@ -64,8 +64,8 @@ public class AuthorController {
     //todo: возможно стоит подумать над URL
     @PostMapping(value = "{idAuthor}/books")
     public ResponseEntity<Author> createBookToAuthor(@PathVariable(value = "idAuthor") Long idAuthor,
-                                                     @RequestBody Book book) {
-        Author author = authorService.createBookToAuthor(idAuthor, book);
+                                                     @RequestBody BookDTO bookDto) {
+        Author author = authorService.createBookToAuthor(idAuthor, bookDto);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 }
