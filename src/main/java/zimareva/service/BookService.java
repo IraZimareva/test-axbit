@@ -66,7 +66,7 @@ public class BookService {
             Field field = ReflectionUtils.findField(Book.class, key);
             field.setAccessible(true);
             if (key.equals("genre")) {
-                Genre genre = genreService.getGenre(Long.valueOf((Integer)value));
+                Genre genre = genreService.getGenre(Long.valueOf((Integer) value));
                 ReflectionUtils.setField(field, bookToEdit, genre);
             } else {
                 ReflectionUtils.setField(field, bookToEdit, value);

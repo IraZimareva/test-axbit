@@ -2,25 +2,25 @@ package zimareva.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import zimareva.exception.EntityNotFoundException;
-import zimareva.model.Book;
 import zimareva.model.Genre;
 import zimareva.repository.GenreRepository;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
 public class GenreService {
     private final GenreRepository genreRepository;
-    private final BookService bookService;
 
     @Autowired
-    public GenreService(GenreRepository genreRepository, BookService bookService) {
+    public GenreService(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
-        this.bookService = bookService;
     }
 
     public Genre addGenre(Genre genre) {
@@ -32,10 +32,21 @@ public class GenreService {
                 new EntityNotFoundException(Genre.class.getName(), id));
     }
 
-    public List<Genre> getGenres() {
+    public List<Genre> getGenres(String name) {
+        if (name == null) {
+            return getAllGenres();
+        }
+        return getGenresByParameters(name);
+    }
+
+    public List<Genre> getAllGenres() {
         return StreamSupport
                 .stream(genreRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+    }
+
+    public List<Genre> getGenresByParameters(String name) {
+        return genreRepository.findByName(name);
     }
 
     public void deleteGenre(Long id) {
@@ -44,28 +55,13 @@ public class GenreService {
     }
 
     @Transactional
-    public Genre editGenre(Long id, Genre genre) {
+    public Genre editGenre(Long id, Map<String, Object> genreDetails) {
         Genre genreToEdit = getGenre(id);
-        genreToEdit.setName(genre.getName());
-        //Надо ли?
-        genreToEdit.setBooks(genre.getBooks());
+        genreDetails.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Genre.class, key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, genreToEdit, value);
+        });
         return genreToEdit;
-    }
-
-    @Transactional
-    public Genre addBookToGenre(Long genreId, Long bookId) {
-        Genre genre = getGenre(genreId);
-        Book book = bookService.getBook(bookId);
-        genre.addBook(book);
-        book.setGenre(genre);
-        return genre;
-    }
-
-    @Transactional
-    public Genre removeBookFromGenre(Long genreId, Long bookId) {
-        Genre genre = getGenre(genreId);
-        Book book = bookService.getBook(bookId);
-        genre.deleteBook(book);
-        return genre;
     }
 }
