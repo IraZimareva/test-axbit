@@ -17,5 +17,8 @@
         <insert tableName="genre">
             <column name="name" value="Роман"/>
         </insert>
+        <insert tableName="genre">
+            <column name="name" value="Другое"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
