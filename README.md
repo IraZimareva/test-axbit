@@ -20,9 +20,27 @@
 1. AuthorController <br>
 GET /authors <br>
 GET /authors/{id} <br>
-GET /authors with different parameters (lastname, firstname, middlename, dateOfBirth). For example GET /authors?lastname=Толстой&firstname=Алексей
-
-
+GET /authors with different parameters (lastname, firstname, middlename, dateOfBirth). For example GET /authors?lastname=Толстой&firstname=Алексей  <br>
+POST /authors with Request body as JSON: 
+  {
+        "lastname": "Пушкин",
+        "firstname": "Александр",
+        "middlename": "Сергеевич",
+        "dateOfBirth": "1799-06-06"
+  }<br>
+DELETE /authors/{id} <br>
+PATCH /authors/{id} with Request body as JSON: 
+  {
+        "firstname": "Александр",
+        "dateOfBirth": "1799-06-06"
+  }<br>
+ PUT /authors/{idAuthor}/books/{idBook} <br>
+ POST /authors/{idAuthor}/books with Request body as JSON: 
+ {
+    "isbn": "9780132350884",
+    "genreId": 2     
+}
+ 
 2. BookController <br>
 GET /books <br>
 GET /books/{id} <br>
@@ -38,6 +56,7 @@ PATCH /books/{id} with Request body as JSON:
     "isbn": "9780439064873",
     "genre": 2
 }
+
 3. GenreController <br>
 GET /genres <br>
 GET /genres/{id} <br>
