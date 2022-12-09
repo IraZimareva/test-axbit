@@ -33,12 +33,7 @@ PATCH /authors/{id} with Request body as JSON:
   {
         "firstname": "Александр",
         "dateOfBirth": "1799-06-06"
-  }<br>
- PUT /authors/{idAuthor}/books/{idBook} <br>
- POST /authors/{idAuthor}/books with Request body as JSON: 
- {
-    "isbn": "9780132350884",
-    "genreId": 2     }
+  }
  
 2. BookController <br>
 GET /books <br>
@@ -54,7 +49,12 @@ PATCH /books/{id} with Request body as JSON:
 {
     "isbn": "9780439064873",
     "genre": 2
-}
+}<br>
+PUT /books/{idAuthor} with parameter (author_id). For example GET /books/7?author_id=4 <br>
+PUT /books/ with parameter (author_id) and Request body as JSON: 
+ {
+    "isbn": "9780132350884",
+    "genreId": 2     } 
 
 3. GenreController <br>
 GET /genres <br>
