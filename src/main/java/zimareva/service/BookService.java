@@ -54,7 +54,7 @@ public class BookService {
     }
 
     public List<Book> getBooksByParameters(Map<String, Object> bookParameters) {
-        return bookRepository.findBooksByParameteres(bookParameters);
+        return bookRepository.findBooksByParameters(bookParameters);
     }
 
     public void deleteBook(Long id) {

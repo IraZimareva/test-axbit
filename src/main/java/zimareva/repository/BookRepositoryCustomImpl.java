@@ -15,12 +15,12 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Book> findBooksByParameteres(Map<String, Object> bookParameteres) {
+    public List<Book> findBooksByParameters(Map<String, Object> bookParameters) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Book> query = cb.createQuery(Book.class);
         Root<Book> book = query.from(Book.class);
         List<Predicate> predicates = new ArrayList<>();
-        bookParameteres.forEach((key, value) -> {
+        bookParameters.forEach((key, value) -> {
             if (key.equals("genre")) {
                 Join<Book, Genre> genreJoin = book.join("genre");
                 predicates.add(cb.equal(genreJoin.get("name"), value));

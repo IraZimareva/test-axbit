@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface AuthorRepositoryCustom {
-    List<Author> findAuthorsByParameteres(Map<String, Object> authorParameteres);
+    List<Author> findAuthorsByParameters(Map<String, Object> authorParameters);
 }

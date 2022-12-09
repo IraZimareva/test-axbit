@@ -19,12 +19,12 @@ public class AuthorRepositoryCustomImpl implements AuthorRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Author> findAuthorsByParameteres(Map<String, Object> authorParameteres) {
+    public List<Author> findAuthorsByParameters(Map<String, Object> authorParameters) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Author> query = cb.createQuery(Author.class);
         Root<Author> author  = query.from(Author.class);
         List<Predicate> predicates = new ArrayList<>();
-        authorParameteres.forEach((key, value) -> {
+        authorParameters.forEach((key, value) -> {
             if (key.equals("dateOfBirth")) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate dateOfBirth = LocalDate.parse((String) value, formatter);

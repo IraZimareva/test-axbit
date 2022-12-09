@@ -48,7 +48,7 @@ public class AuthorService {
     }
 
     public List<Author> getAuthorsByParameters(Map<String, Object> authorParameters) {
-        return authorRepository.findAuthorsByParameteres(authorParameters);
+        return authorRepository.findAuthorsByParameters(authorParameters);
     }
 
 
