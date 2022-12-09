@@ -16,7 +16,7 @@
 - Создание БД через систему контроля миграций Liquibase или Flyway
 
 
-## Система имеет следующий программный интерфейс: ##
+## Система имеет следующие endpoints: ##
 1. AuthorController <br>
 GET /authors <br>
 GET /authors/{id} <br>
