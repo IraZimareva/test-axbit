@@ -5,16 +5,41 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet id="insert-into-book" author="Zimareva">
-        <preConditions  onFail="WARN">
-            <sqlCheck  expectedResult="4">select count(*) from   genre</sqlCheck>
-            <sqlCheck  expectedResult="1">select count(*) from   author</sqlCheck>
+        <!--<preConditions  onFail="WARN">
+            <sqlCheck  expectedResult="6">select count(*) from   genre</sqlCheck>
+            <sqlCheck  expectedResult="3">select count(*) from   author</sqlCheck>
         </preConditions>
-        <comment>Проверяем что в нашей таблице genre есть 4 жанра и
-            в таблице author есть 1 автор перед добавлением книги</comment>
+        <comment>Проверяем что в нашей таблице genre есть 6 жанров и
+            в таблице author есть 3 автора перед добавлением книг</comment>-->
         <insert tableName="book">
             <column name="isbn" value="9781612035512"/>
             <column name="genre_id" value="1"/>
             <column name="author_id" value="1"/>
+        </insert>
+        <insert tableName="book">
+            <column name="isbn" value="9785171204921"/>
+            <column name="genre_id" value="5"/>
+            <column name="author_id" value="3"/>
+        </insert>
+        <insert tableName="book">
+            <column name="isbn" value="9785928732868"/>
+            <column name="genre_id" value="4"/>
+            <column name="author_id" value="3"/>
+        </insert>
+        <insert tableName="book">
+            <column name="isbn" value="9785389062566"/>
+            <column name="genre_id" value="4"/>
+            <column name="author_id" value="2"/>
+        </insert>
+        <insert tableName="book">
+            <column name="isbn" value="9785170878888"/>
+            <column name="genre_id" value="4"/>
+            <column name="author_id" value="2"/>
+        </insert>
+        <insert tableName="book">
+            <column name="isbn" value="9785001120674"/>
+            <column name="genre_id" value="5"/>
+            <column name="author_id" value="2"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

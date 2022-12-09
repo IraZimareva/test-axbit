@@ -11,5 +11,17 @@
             <column name="middlename" value="Игнейшус Конан"/>
             <column name="date_of_birth" value="1859-05-22"/>
         </insert>
+        <insert tableName="author">
+            <column name="lastname" value="Толстой"/>
+            <column name="firstname" value="Лев"/>
+            <column name="middlename" value="Николаевич"/>
+            <column name="date_of_birth" value="1829-09-09"/>
+        </insert>
+        <insert tableName="author">
+            <column name="lastname" value="Толстой"/>
+            <column name="firstname" value="Алексей"/>
+            <column name="middlename" value="Николаевич"/>
+            <column name="date_of_birth" value="1883-01-10"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
