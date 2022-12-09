@@ -38,8 +38,7 @@ PATCH /authors/{id} with Request body as JSON:
  POST /authors/{idAuthor}/books with Request body as JSON: 
  {
     "isbn": "9780132350884",
-    "genreId": 2     
-}
+    "genreId": 2     }
  
 2. BookController <br>
 GET /books <br>
