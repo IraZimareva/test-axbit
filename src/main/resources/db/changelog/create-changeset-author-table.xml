@@ -22,11 +22,4 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
             <column name="date_of_birth" type="date"/>
         </createTable>
     </changeSet>
-    <changeSet id="add_fk_author_id_to_book" author="Zimareva">
-        <addForeignKeyConstraint baseColumnNames="author_id"
-                                 baseTableName="book"
-                                 constraintName="fk_author_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="author"/>
-    </changeSet>
 </databaseChangeLog>
