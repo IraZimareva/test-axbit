@@ -2,24 +2,27 @@ package zimareva.model;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import zimareva.exception.AuthorWithBooksExistsException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Entity
 @Table(name = "author")
 @SQLDelete(sql = "UPDATE author SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted = false")
 public class Author extends EntitySuperclass {
+    private static Logger logger = Logger.getLogger(EntitySuperclass.class.getName());
+
     private String lastname;
     private String firstname;
     private String middlename;
     private LocalDate dateOfBirth;
-    //todo: или Lazy?
     @OneToMany(
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "author_id", nullable = false)
     private List<Book> books = new ArrayList<>();
@@ -69,6 +72,20 @@ public class Author extends EntitySuperclass {
 
     public void addBook(Book book) {
         books.add(book);
+    }
+
+    @PreRemove
+    public void preRemove() {
+        logger.info("Pre remove. Attempt to remove author");
+        if (this.getBooks().isEmpty() || this.getBooks() == null) {
+            logger.info("Remove author without books");
+        } else {
+            logger.info("Author contains books! Dont remove!");
+            throw new AuthorWithBooksExistsException(
+                    this.getLastname() + this.getFirstname(),
+                    this.getId(),
+                    this.getBooks().size());
+        }
     }
 
     @Override

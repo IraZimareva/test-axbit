@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import zimareva.exception.EntityNotFoundException;
 import zimareva.model.Author;
-import zimareva.model.Book;
-import zimareva.model.dto.BookDTO;
 import zimareva.repository.AuthorRepository;
 
 import javax.transaction.Transactional;
@@ -21,12 +19,10 @@ import java.util.stream.StreamSupport;
 @Service
 public class AuthorService {
     private final AuthorRepository authorRepository;
-    private final BookService bookService;
 
     @Autowired
-    public AuthorService(AuthorRepository authorRepository, BookService bookService) {
+    public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
-        this.bookService = bookService;
     }
 
     public Author addAuthor(Author author) {
@@ -76,21 +72,5 @@ public class AuthorService {
             }
         });
         return authorToEdit;
-    }
-
-    @Transactional
-    public Author addBookToAuthor(Long authorId, Long bookId) {
-        Author author = getAuthorById(authorId);
-        Book book = bookService.getBook(bookId);
-        author.addBook(book);
-        return author;
-    }
-
-    @Transactional
-    public Author createBookToAuthor(Long authorId, BookDTO bookDto) {
-        Author author = getAuthorById(authorId);
-        Book createdBook = bookService.addBook(bookDto);
-        author.addBook(createdBook);
-        return author;
     }
 }

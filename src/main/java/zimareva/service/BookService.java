@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import zimareva.exception.EntityNotFoundException;
+import zimareva.model.Author;
 import zimareva.model.Book;
 import zimareva.model.Genre;
 import zimareva.model.dto.BookDTO;
@@ -20,11 +21,13 @@ import java.util.stream.StreamSupport;
 public class BookService {
     private final BookRepository bookRepository;
     private final GenreService genreService;
+    private final AuthorService authorService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, GenreService genreService) {
+    public BookService(BookRepository bookRepository, GenreService genreService, AuthorService authorService) {
         this.bookRepository = bookRepository;
         this.genreService = genreService;
+        this.authorService = authorService;
     }
 
     public Book addBook(BookDTO bookDto) {
@@ -73,5 +76,21 @@ public class BookService {
             }
         });
         return bookToEdit;
+    }
+
+    @Transactional
+    public Author addBookToAuthor(Long authorId, Long bookId) {
+        Author author = authorService.getAuthorById(authorId);
+        Book book = getBook(bookId);
+        author.addBook(book);
+        return author;
+    }
+
+    @Transactional
+    public Author createBookToAuthor(Long authorId, BookDTO bookDto) {
+        Author author = authorService.getAuthorById(authorId);
+        Book createdBook = addBook(bookDto);
+        author.addBook(createdBook);
+        return author;
     }
 }

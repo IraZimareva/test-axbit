@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zimareva.model.Author;
-import zimareva.model.dto.BookDTO;
 import zimareva.service.AuthorService;
 
 import java.util.List;
@@ -51,21 +50,5 @@ public class AuthorController {
                                                        @RequestBody Map<String, Object> authorDetails) {
         Author editedAuthor = authorService.editAuthor(authorId, authorDetails);
         return new ResponseEntity<>(editedAuthor, HttpStatus.OK);
-    }
-
-    //todo: возможно стоит подумать над URL
-    @PutMapping(value = "{idAuthor}/books/{idBook}")
-    public ResponseEntity<Author> addBookToAuthor(@PathVariable(value = "idAuthor") Long idAuthor,
-                                                  @PathVariable(value = "idBook") Long idBook) {
-        Author author = authorService.addBookToAuthor(idAuthor, idBook);
-        return new ResponseEntity<>(author, HttpStatus.OK);
-    }
-
-    //todo: возможно стоит подумать над URL
-    @PostMapping(value = "{idAuthor}/books")
-    public ResponseEntity<Author> createBookToAuthor(@PathVariable(value = "idAuthor") Long idAuthor,
-                                                     @RequestBody BookDTO bookDto) {
-        Author author = authorService.createBookToAuthor(idAuthor, bookDto);
-        return new ResponseEntity<>(author, HttpStatus.OK);
     }
 }
